@@ -40,6 +40,7 @@ xcolor={pdftex,svgnames}, % dvipsnames, dvipsnames*, svgnames, svgnames*, x11nam
 
 
 \def\slider#1#2{% 1: length, 2: position of the mark (0 to 1)
+  \shorthandoff{:!} % protection in french babel mode
   \tikz[baseline=0cm]{
     \coordinate (start) at (0,0);
     \coordinate (end) at (#1,0);
@@ -49,6 +50,7 @@ xcolor={pdftex,svgnames}, % dvipsnames, dvipsnames*, svgnames, svgnames*, x11nam
         fill=blue!30!cyan,
     ] (mark) + (-.3em, -.2em) -- +(0em, -.4em) -- +(.3em, -.2em) -- +(.3em, .9em) -- +(-.3em, .9em) -- cycle;
   }
+  \shorthandon{:!}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -58,22 +60,24 @@ xcolor={pdftex,svgnames}, % dvipsnames, dvipsnames*, svgnames, svgnames*, x11nam
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % First slide
 \begin{frame}{Rappels COVID-19}
+
+  \onslide<1>{ \hspace{4cm} \raisebox{-.45\height}{\includegraphics[width=3em]{images/dont-panic.png}}}
+
   \begin{itemize}
-    \item[] \raisebox{-.45\height}{\includegraphics[width=4em]{images00a/distance.png}} \hspace{.5cm}
-\\
-    \item[] \raisebox{-.45\height}{\includegraphics[width=4em]{images00a/distance.png}} \hspace{.5cm}
+    \item[] \raisebox{-.45\height}{\includegraphics[width=2.5em]{images/distance.png}} \hspace{.3cm}
       Garder les \textbf{distances} { \scriptsize ($>$1~m) }
-    \item[] \raisebox{-.45\height}{\includegraphics[width=4em]{images00a/lavage_mains.png}} \hspace{.5cm}
+    \item[] \raisebox{-.45\height}{\includegraphics[width=2.5em]{images/lavage_mains.png}} \hspace{.3cm}
       Se laver régulièrement les \textbf{mains} { \scriptsize ($\approx$30 min.) }
-    \item[] \raisebox{-.45\height}{\includegraphics[width=4em]{images00a/masque.png}} \hspace{.5cm}
+    \item[] \raisebox{-.45\height}{\includegraphics[width=2.5em]{images/masque.png}} \hspace{.3cm}
       Mettre un \textbf{masque} { \scriptsize (intérieur+dense, \textbf{nez}+bouche) }
-    \item[] \raisebox{-.45\height}{\includegraphics[width=4em]{images00a/windows10.png}} \hspace{.5cm}
+    \item[] \raisebox{-.45\height}{\includegraphics[width=2.5em]{images/windows10.png}} \hspace{.3cm}
       Ouvrir les \textbf{fenêtres} régulièrement { \scriptsize ($\approx$3 hr.)}
   \end{itemize}
 
-\bigskip
-COOL \SLIDER{5cm}{0.7} PARANO
-
+  \begin{center}
+    \onslide*<2>{ \bigskip COOL \slider{10em}{0.7} PARANO }
+    \onslide*<3>{ \includegraphics[width=10em]{images/raising-hands.png} }
+  \end{center}
 
 \end{frame}
 
