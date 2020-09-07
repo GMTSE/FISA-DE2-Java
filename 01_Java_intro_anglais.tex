@@ -1,12 +1,13 @@
-%%% TODO: ajouter des notions de syntaxe du langage!
-
 \documentclass[English,c,% 't' (resp. 'c') places text vertically at top/center of each slide
 % PDF settings
 hyperref={%
     pdftitle={FISA-DE2 OOP in Java},%
     pdfauthor={Muller, Gravier, Laforest, Subercaze},%
     pdfsubject={OOP in Java},%
-    pdfkeywords={OOP, Java}%
+    pdfkeywords={OOP, Java},%
+    colorlinks=true,%
+    urlcolor=blue,%
+    linkcolor=%
     },%
 % To load many pre-defined color names
 xcolor={pdftex,svgnames} % dvipsnames, dvipsnames*, svgnames, svgnames*, x11names,
@@ -16,7 +17,18 @@ xcolor={pdftex,svgnames} % dvipsnames, dvipsnames*, svgnames, svgnames*, x11name
 %\setbeamertemplate{footline}[page number]
 %\setbeamertemplate{frametitle}[default][center]
 % To remove the navigation symbols from the bottom of slides:
+
+% Remove navigation bar
 \setbeamertemplate{navigation symbols}{}
+% Remove outline at top
+\setbeamertemplate{headline}{}
+
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
 
 % Put text more on top of each slide for all slides
 \addtobeamertemplate{frametitle}{}{\vspace*{-.7em}}
@@ -48,8 +60,7 @@ xcolor={pdftex,svgnames} % dvipsnames, dvipsnames*, svgnames, svgnames*, x11name
 
 \AtBeginSection[]
 {
-   \begin{frame}
-       \frametitle{Plan}
+   \begin{frame}{Outline}
        \tableofcontents[currentsection]
    \end{frame}
 }
@@ -87,17 +98,19 @@ xcolor={pdftex,svgnames} % dvipsnames, dvipsnames*, svgnames, svgnames*, x11name
 \DeclareCaptionFormat{listing}{\colorbox{algoTitle}{\parbox{\textwidth}{\bfseries #1#2 #3}}}
 \captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
 
-\title[OOP in Java]{Object-Oriented Programming in Java}
-\logo{\includegraphics[width=1cm]{img/logo_tse.png}}
-\author{Ch. \textsc{Gravier}, F. \textsc{Laforest}, J. \textsc{Subercaze}, G. \textsc{Muller}}
-\institute[TSE/UJM]
-{
-Télécom Saint-\'{E}tienne\\
-Université Jean Monnet\\
-\medskip
-{\emph{\{pénom.nom\}@univ-st-etienne.fr}}
+\title[OOP in Java]{Object-Oriented Programming in \raisebox{-.3\height}{\includegraphics[height=1.5em]{./images01/java_logo.png}}}
+\logo{\includegraphics[width=1cm]{images00/logo_tse.png}}
+\author[Guillaume MULLER]{
+  Guillaume \textsc{Muller}\\[1.2em]
+  {\scriptsize \textit{based on work from:} \\[.1em]
+    Ch. \textsc{Gravier}, F. \textsc{Laforest}, J. \textsc{Subercaze}}
 }
-\date[10:07/2019]{7~october~2019}
+\institute[TSE/UJM]{
+  Télécom Saint-\'{E}tienne\\
+  \medskip
+  {\url{{pénom.nom}@univ-st-etienne.fr}}
+}
+\date[09/14/2020]{14~September~2020}
 
 \begin{document}
 
@@ -107,96 +120,213 @@ Université Jean Monnet\\
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{While I'm talking \texttt{:)}}
+
+If you don't have another JDK/IDE:
+\bigskip
+  \begin{itemize}
+    \item Download \texttt{OpenJDK 8+ (LTS)} / \texttt{HotSpot}
+    \url{https://adoptopenjdk.net/installation.html}
+\medskip
+    \item Download \texttt{Eclipse IDE 2020‑06}
+    \url{https://www.eclipse.org/downloads/}
+  \end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Disclaimer}
-This course is an \textbf{introdution}
-\begin{itemize}
-  \item It does \textbf{NOT} cover \textbf{all} Java
-  \item The goal here is to give you enough to understand future TD's intros
-  \item A more complete course (French)\\
-  {\footnotesize \url{http://jmdoudoux.developpez.com/cours/developpons/java/}}
-\end{itemize}
+  This course is an \textbf{introdution}
+  \begin{itemize}
+    \item Does \textbf{NOT} cover \textbf{all} Java
+    \item Goal: give you enough to understand future TD's intros
+    \item Goes up to Java~8
+    \item A more complete course (in French)\\
+    {\footnotesize \url{http://jmdoudoux.developpez.com/cours/developpons/java/}}
+    \bigskip
+    \item Thanks Christophe \textsc{Gravier} for the material!
+  \end{itemize}
+
+  \begin{center}
+    \includegraphics[height=5em]{./images01/java_logo.png}
+  \end{center}
+
 \end{frame}
 
 \section{Introduction}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Java}
-\begin{itemize}
-  \item Created in May 1995,
-  \vspace{1em}
-  \item It's an Object-Oriented language,
-  \vspace{1em}
-  \item Synthax is close to C,
-  \vspace{1em}
-  \item It's the most used language in October~2019\\
-  \url{https://www.tiobe.com/tiobe-index/}
-\end{itemize}
+\begin{frame}{Java: What \& Why}
+  \hspace{1cm}
+  \begin{itemize}
+    \item Created in May \textbf{1995}
+    \vspace{1em}
+    \item It's an \textbf{Object-Oriented} language % The platform itself respects OOP Design Principles
+    \vspace{1em}
+    \item Syntax is close to C/C++ \href{https://en.wikipedia.org/wiki/Comparison_of_Java_and_C\%2B\%2B}{[1]}, similar to C$\sharp$ \href{https://en.wikipedia.org/wiki/Comparison_of_C_Sharp_and_Java}{[2]}
+    \vspace{1em}
+    \item \href{https://www.tiobe.com/tiobe-index/}{\textbf{2nd ``most used''} language in August~2020}
+  \end{itemize}
+
+  \begin{center}
+    \includegraphics[height=8.3cm]{images01/earth1.png}
+  \end{center}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Java in~2013}
-\begin{itemize}
-  \item 97\% of machines have a JVM in enterprises,
-  \vspace{1em}
-  \item There are more than 9~millions Java developers in the world,
-  \vspace{1em}
-  \item More than 3 billions mobile devices run Java (Android\ldots{}).
-\end{itemize}
+\begin{frame}{Java: What \& Why}
+  \begin{figure}[!h]
+    \begin{center}
+      \includegraphics[height=8.3cm]{images01/2020_08_TIOBEIndex.png}
+    \end{center}
+    \caption{TIOBE Index as of 08/2020}
+    \label{fig:TIOBEIdx}
+  \end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Java:What \& Why}
+  \hspace{3cm}
+  \begin{itemize}
+    \item \href{https://www.jmdoudoux.fr/java/dej/chap-presentation.htm}{In~2011}:
+    \begin{itemize}
+      \item \textbf{97\% of machines} have a JVM in enterprises
+      \medskip
+      \item \textbf{9~millions+ Java developers} in the world
+      \medskip
+      \item \textbf{3~billions+ mobile devices} run Java (Android\ldots{})
+    \end{itemize}
+  \end{itemize}
+  \medskip
+  \begin{itemize}
+    \item \href{https://www.codeplatoon.org/best-paying-most-in-demand-programming-languages-2020/}{In~2020}:
+    \begin{itemize}
+      \item 3rd in \textbf{Job Postings}
+      \item 3rd in \textbf{Average Salary}
+    \end{itemize}
+  \end{itemize}
+
+\bigskip
+  \begin{center}
+    \includegraphics[height=8.3cm]{images01/earth1.png}
+  \end{center}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Characteristics}
-\begin{itemize}
-  \item Both Compiled (to bytecode) \& Interpreted (on the JVM)
-  \vspace{1em}
-  \item Portable (independent of the hardware it is executed on)
-  \vspace{1em}
-  \item Object Oriented, but \textbf{single} inheritance ($\Rightarrow$ \texttt{interfaces})
-  \vspace{1em}
-  \item Strongly Typed
-  \vspace{1em}
-  \item Java managed the memory.
-\end{itemize}
+  \begin{itemize}
+    \item Both \textbf{Compiled} (to bytecode) \& \textbf{Interpreted} (on the JVM)
+    \vspace{.5em}
+    \item \textbf{Hardware independent} ($\Rightarrow$ truly portable)\\
+     \raisebox{-.5\height}{\includegraphics[height=4em]{images01/computer-hardware.png}}
+     \raisebox{-.5\height}{\includegraphics[height=2em]{images01/oses.png}}
+    \vspace{.5em}
+    \item \textbf{Strongly Typed}
+    \raisebox{-.5\height}{\includegraphics[height=4em]{images01/types.png}}
+    \vspace{.5em}
+    \item \textbf{Object Oriented}
+    \vspace{.5em}
+    \item Java manages the memory
+    \hspace{3.3cm}\raisebox{-.6\height}{\includegraphics[height=4em]{images01/GarbageCollector.png}}\\[-1em]
+    (\textbf{NO} explicit \textbf{pointers} \texttt{\textbackslash{}o/}, Garbage Collector)
+  \end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Versions}
-There are several distributions of Java
-\begin{itemize}
-  \item Oracle vs. OpenJDK;
-  \item Java Runtime Environment (JRE): only execution environment (JVM);
-  $\Rightarrow$ for end users!
-  \item Java Development Kit (JDK): set of tools \& APIs to develop in Java;
-  $\Rightarrow$ for devs!
-  \item Java for enterprises (J2EE): extended JDK with tools \& APIs web development.
-\end{itemize}
+\begin{frame}{Distributions}
 
-\textbf{If you install a JDK, do not install a JRE, as it is included in the JDK.}
+  There are several \textbf{distributions} of Java
+  \bigskip
+  \begin{itemize}
+    \item[\textbullet] \href{https://www.oracle.com/java/technologies/javase-downloads.html}{Sun/Oracle} vs.
+          \href{https://adoptopenjdk.net/installation.html}{OpenJDK} vs.
+          \href{https://www.eclipse.org/openj9/}{Eclipse} vs. %% https://www.eclipse.org/eclipse/news/4.10/jdt.php
+          \href{https://en.wikipedia.org/wiki/GNU_Compiler_for_Java}{GNU}\ldots{}
+    \medskip
+    \item[\textbullet] \textcolor{blue}{\bf JRE}: Java Runtime Environment
+    \begin{itemize}
+      \item \textbf{Execution} environment only (JVM)
+      \item $\Rightarrow$ for \textcolor{blue}{\bf end users}!
+    \end{itemize}
+%
+    \item[\textcolor{red}{\textbullet}] \textcolor{red}{\bf JDK}: Java Development Kit
+    \begin{itemize}
+      \item Tools \& APIs to \textbf{develop} in Java
+      \item $\Rightarrow$ for \textcolor{red}{\bf devs}!
+    \end{itemize}
+%
+    \item[\textbullet] \textcolor{DarkGreen}{\bf J2EE}: Java Enterprise Edition
+    \begin{itemize}
+      \item JDK + tools \& APIs for \textcolor{DarkGreen}{\bf web development}
+    \end{itemize}
+  \end{itemize}
+
+  \bigskip
+  \textbf{Note: Installing a JDK also installs a JRE!}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Versions}
+%
+  \begin{itemize}
+    \item \textbf{Since~2017}: 1~new version every 6~months
+    \begin{itemize}
+      \item New Features vs. LTS system
+      \item Today (2020): latest = Java~14
+      \item Big changes in Java~8 (Collections, Stream, \textbf{Lambdas})
+      \item Java is \textbf{backward compatible}
+    \end{itemize}
+    \medskip
+    \item Check installed version (Command Prompt)\\
+    \texttt{\$ java -version}\\
+    \texttt{openjdk version "11.0.8" 2020-07-14}
+  \end{itemize}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Don't get it wrong}
-\begin{center}
-JAVA IS NOT JAVASCRIPT\\[1.5em]
-\includegraphics[width=.8\linewidth,height=.6\textheight]{./img/killegg.jpg}
-\end{center}
+  \begin{center}
+    Java IS \textbf{NOT} JavaScript \\[1.5em]
+    \includegraphics[width=.8\linewidth,height=.6\textheight]{./images01/killegg.jpg}
+  \end{center}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Specificities}
-The Java platform has some specificities:
-\begin{itemize}
-  \item It \textbf{compiles} source code into a langage independent of
-  the hardware platform it is executed on (bytecode);
-  \item This \textbf{bytecode} is executed (\textbf{interpreted}) by a virtual machine (\textbf{JVM} = Java Virtual Machine);
-  \item \textbf{Packages} allow to organize code (classes);
-  \item \textbf{Classpath} indicates to the compiler \& JVM where to find classes;
-  \item \textbf{JAR} (Java ARchive): archive format to
-  distribute/deploy executable code as a single file.
-\end{itemize}
+
+  The Java platform has some \textbf{specificities}:
+  \medskip
+  \begin{itemize}
+    \item A \textbf{single} (public) class per \texttt{java} source file
+    \medskip
+    \item \textbf{Compiles} source code into bytecode (hardware independent)
+    \medskip
+    \item This \textbf{bytecode} is executed (\textbf{interpreted}) on the \textbf{JVM}~\footnote{\textbf{J}ava \textbf{V}irtual \textbf{M}achine}
+    \medskip
+    \item \textbf{No} header files, \textbf{no} linking
+    \medskip
+    \item \textbf{Packages} allow to organize code (\textbf{Classes})
+    \medskip
+    \item \texttt{jar} (\textbf{J}ava \textbf{AR}chive): format to distribute an ``executable''
+    \medskip
+    \item \textbf{CLASSPATH} indicates where to find classes
+  \end{itemize}
 
 \end{frame}
 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Specificities}
+
+%   \begin{center}
+%     \includegraphics[height=.6\textheight]{./images01/jvm.png}
+%   \end{center}
+
+% \end{frame}
 
 \section{Functioning}
 
@@ -206,52 +336,75 @@ The Java platform has some specificities:
 \begin{frame}{Compilation Chain -- User's View}
 
 \centering{
-\includegraphics[height=0.85\textheight]{./img/java_intro_compilationchain1.png}
+\includegraphics[height=0.85\textheight]{./images01/java_intro_compilationchain1.png}
 }
 
 \end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Compilation Chain -- Developer's View}
 
 \centering{
-\includegraphics[height=0.85\textheight]{./img/java_intro_compilationchain2.png}
+\includegraphics[height=0.7\textheight]{./images01/java_intro_compilationchain2.png}
 }
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Source code \& bytecode}
+  \begin{itemize}
+    \item Source code in \texttt{MyClass.java} file\footnote{One single (public) class per file}
+    \medskip
+    \item File name = (public) class name
+    \medskip
+    \item Compile with: \texttt{javac <file>.java} (\textbf{java c}ompiler)
+    \medskip
+    \item Results in \texttt{.class} file (bytecode)
+    \medskip
+    \item Execute with: \texttt{javac <file>}\footnote{NOTE: there is no extension here!} (JVM)
+  \end{itemize}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Source File}
 
 \centering{
-  \includegraphics[height=0.8\textheight]{./img/java_intro_sourcefile.png}
+  \includegraphics[height=0.8\textheight]{./images01/java_intro_sourcefile.png}
 }
 
 \end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Compilation Chain -- First Run}
 
 \centering{
-\includegraphics[height=0.85\textheight]{./img/java_intro_compilationchain3.png}
+  \includegraphics[height=0.8\textheight]{./images01/java_intro_compilationchain3.png}
 }
 
 \end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{My First Class}
 
 \centering{
-\includegraphics[height=0.85\textheight]{./img/java_intro_class1.png}
+\includegraphics[height=0.8\textheight]{./images01/java_intro_class1.png}
 }
 
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Class File Content}
 
-\centering{
-\includegraphics[height=0.8\textheight]{./img/java_intro_class2.png}
-}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Class File Content}
 
-\end{frame}
+% \centering{
+% \includegraphics[height=0.8\textheight]{./images01/java_intro_class2.png}
+% }
+
+% \end{frame}
 
 \subsection{Keywords}
+   \begin{frame}{Outline}
+       \tableofcontents[currentsubsection]
+   \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Java Keywords}
@@ -260,13 +413,22 @@ The Java platform has some specificities:
   { \footnotesize
   \begin{itemize}
 
-    \item (Basic) \textbf{Types}:\\
-    \texttt{void}, \texttt{boolean}, \texttt{char}, \texttt{byte},
-    \texttt{short}, \texttt{int}, \texttt{float}, \texttt{long},
-    \texttt{double}, \texttt{[]}\\
-    \texttt{String}, \texttt{List/Set}\ldots{}
+    \item \textbf{Comments}: \texttt{/* comnent */}, \texttt{/** Java Doc */}, \texttt{// single line} \\
 
-    \item \textbf{Packages}: \texttt{import}, \texttt{package}
+    \item (Basic) \textbf{Types}: \\
+    \texttt{\color{red} void}, \texttt{boolean}, \texttt{char}, \texttt{byte},
+    \texttt{short}, \texttt{int}, \texttt{float}, \texttt{long},
+    \texttt{double}, \texttt{\color{red} []}\\
+    \texttt{\color{red} String}, \texttt{\color{red} List}, \texttt{\color{red} Set}, \texttt{\color{red} Map}\ldots{}
+
+    \item \textbf{Control Structures}: \\
+    \texttt{for}, \texttt{while}/\texttt{do},
+    \texttt{break}/\texttt{continue}\\
+    \texttt{if}/\texttt{else}, \texttt{switch}/\texttt{case}
+
+    \item \textbf{Methods}: \texttt{return}, \texttt{super}
+
+    \item \textbf{Packages}: \texttt{package}, \texttt{import}
 
     \item \textbf{Objects}:\\
     \texttt{interface}/\texttt{class}, \texttt{abstract},
@@ -274,14 +436,7 @@ The Java platform has some specificities:
     \texttt{new}, \texttt{this}\\
     \texttt{static}, \texttt{final}
 
-    \item \textbf{Methods}: \texttt{return}, \texttt{super}
-
     \item \textbf{Visibility}: \texttt{private}, \texttt{public}, \texttt{protected}
-
-    \item \textbf{Control Structures}:\\
-    \texttt{for}, \texttt{while}/\texttt{do},
-    \texttt{break}/\texttt{continue}\\
-    \texttt{if}/\texttt{else}, \texttt{switch}/\texttt{case}
 
     \item \textbf{Exceptions}:\\
     \texttt{throw}/\texttt{throws}, \texttt{try}/\texttt{catch}/\texttt{finally}
@@ -291,45 +446,153 @@ The Java platform has some specificities:
 
 \end{frame}
 
-\subsection{Source code, Packages and Bytecode}
+\subsection{Naming Conventions}
+   \begin{frame}{Outline}
+       \tableofcontents[currentsubsection]
+   \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Source code \& bytecode}
-\begin{itemize}
-    \item Source code is written into files named with extension \texttt{.java};
-    \item One (public) class per file;
-    \item Each file is named after the public class inside it;
-    \item \texttt{javac} (\textbf{java c}ompiler) converts/compiles source code into bytecode;
-    \item bytecode files are named with extension \texttt{.class};
-    \item This bytecode is executed/interpreted by the JVM.
+\begin{frame}[fragile]{Naming Conventions}
+
+{\small
+  \begin{itemize}
+%
+    \item \textbf{Packages}: lowercase + dots \\
+\begin{verbatim}
+    com.sun.eng
+\end{verbatim} % cannot be indented ? :{
+    %
+    \item \textbf{Classes / Interfaces}: (upper) CamelCase\\
+\begin{verbatim}
+    class ImageSprite;
+    interface RasterDelegate;
+\end{verbatim}
+%
+    \item \textbf{Methods}: dromedaryCase == (lower) camelCase \\
+\begin{verbatim}
+    run();
+    runFast();
+\end{verbatim}
+%
+    \item \textbf{Variables / Attributes}: dromedaryCase \\
+\begin{verbatim}
+    int             i;
+    char            c;
+    float           myWidth;
+\end{verbatim}
+%
+    \item \textbf{Constants}: ALL CAPS + snake\_case \\
+\begin{verbatim}
+    static final int MIN_WIDTH = 4;
+\end{verbatim}
+%
 \end{itemize}
+}
+
 \end{frame}
 
+\subsection{Pointers/References}
+   \begin{frame}{Outline}
+       \tableofcontents[currentsubsection]
+   \end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{On Bytecode and Just-In-Time compilation}
+\begin{frame}[fragile]{Pointers and parameters}
 
-Pros:
-\begin{itemize}
-    \item Online methods
-    \item Eliminate locks
-    \item Join adjacent synchronized blocks
-    \item Eliminate Dead Code
-    \item etc.
-\end{itemize}
+\begin{minipage}[l]{.45\textwidth}
+  \begin{lstlisting}[escapechar=\%,label=inCpp,caption=MyCode.cpp]
+    Pair origin;
+    Pair *p, *q, *r;
+    origin.x = 0;
+    p = new Pair;
+    p -> y = 5;
+    q = p;
+    r =  \& origin;
+   \end{lstlisting}
+ \end{minipage}
+ \begin{minipage}[l]{.45\textwidth}
+   \begin{lstlisting}[escapechar=\%,label=inJava,caption=MyCode.java]
+     Pair origin = new Pair();
+     Pair p, q, r;
+     origin.x = 0;
+     p = new Pair();
+     p.y = 5;
+     q = p;
+     // not possible
+   \end{lstlisting}
+ \end{minipage}
 
+\bigskip
+\bigskip
+
+\danger{}~Objects in Collections \textbf{can be modified}!!! \\
+(behind the hood, the Collection contains references)!!!
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{No \texttt{delete}?}
+  \vspace{.2em}
+  \begin{itemize}
+    \item The \texttt{new} keyword creates instances
+    \pause
+    \item There is \textbf{no} \texttt{delete} in Java!!!
+  \end{itemize}
+  \pause
+  \bigskip
+  \begin{minipage}[c]{.90\linewidth}
+    \begin{itemize}
+      \item \textbf{Java manages the memory itself}
+      \item The «~\textbf{Garbage Collector}~» does the job
+      \textit{It's a module of the JVM that removes Objects from memory
+        when they are not use (referenced) anymore} \pause
+    \end{itemize}
+  \end{minipage}
+  \begin{minipage}[c]{.05\linewidth}
+    \includegraphics[height=2em]{images01/GarbageCollector.png}
+  \end{minipage}
 \pause
-
-Cons:
 \begin{itemize}
-    \item Increase memory heap,
-    \item Loading time,
-    \item Even more code modification than traditional compiler.
+  \item \textbf{Pros?} \textbf{Cons?}
 \end{itemize}
-
+\pause
+\centering{
+  \includegraphics[height=0.4\textheight]{./images01/garbage.png}
+}
 \end{frame}
 
+
+\subsection{Packages}
+   \begin{frame}{Outline}
+       \tableofcontents[currentsubsection]
+   \end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{On Bytecode and Just-In-Time compilation}
+
+% Pros:
+% \begin{itemize}
+%     \item Online methods
+%     \item Eliminate locks
+%     \item Join adjacent synchronized blocks
+%     \item Eliminate Dead Code
+%     \item etc.
+% \end{itemize}
+
+% \pause
+
+% Cons:
+% \begin{itemize}
+%     \item Increase memory heap,
+%     \item Loading time,
+%     \item Even more code modification than traditional compiler.
+% \end{itemize}
+
+% \end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]{Exemple}
+\begin{frame}[fragile]{Example}
 \begin{lstlisting}[escapechar=\%,label=hellojava,caption=MyClass.java]
 public class MyClass {
   public static void main(String[] args) {
@@ -341,206 +604,208 @@ public class MyClass {
 \bigskip
 
 \begin{itemize}
-    \item To compile: \texttt{javac MyClass.java} (creates bytecode into \texttt{hello.class})
-    \item To excute: \texttt{java MyClass} (no extension! it the class name!)
+    \item To compile (creates bytecode into \texttt{hello.class}): \\
+    \texttt{javac MyClass.java}
+    \item To excute (no extension! it the class name!): \\
+    \texttt{java MyClass}
+    \item Result: \\
+    \texttt{$\|$ Hello World!}
 \end{itemize}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Packages}
-\begin{itemize}
-    \item Source code is organised in «~packages~»;
-    \item This creates a hierarchy of classes that is simpler to apprehend;
-    \item This hierarchy is represented as a String, each level is separated by a point (.);
-    \item The name of the package corresponds to a sub-directory with the same name;
-    \item Example: \\
-    \begin{itemize}
-      \item \texttt{MyClass} is in the package \texttt{fr.tse.java}
-      \item \texttt{MyClass.java} is in the sub-directory \texttt{fr/tse/java/}
-  \end{itemize}
-\end{itemize}
-\end{frame}
+\begin{frame}[fragile]{Packages}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]{Example}
-\begin{lstlisting}[escapechar=\%,label=hellopackage,caption=HelloWorld.java.]
-package fr.tse.java; // Package declaration implies directory for storage
+\begin{lstlisting}[escapechar=\%,label=hellopackage,caption=HelloWorld.java]
+package fr.tse.java;      // Declare Package (name == directory where stored!!)
+import java.util.List; // Refers to another class in another Pacakge
+
 public class HelloWorld {
   public static void main(String[] args) {
-    System.out.println("Hello World");
+    List myList = ...;
   }
 }
 \end{lstlisting}
+
+{\scriptsize
+\begin{itemize}
+    \item Source code is organised in «~packages~»
+    \item Strings separated by points (\texttt{.})
+    \item Similar to file path: \textbf{it is indeed!} \\
+    File: \texttt{fr/tse/java/HelloWorld.java}
+    \medskip
+    \item To compile: \\
+    \texttt{javac fr/tse/java/MyClass.java}
+    \item To excute (FQN): \\
+    \texttt{java fr.tse.java.MyClass}
+\end{itemize}
+}
+
 \end{frame}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Main packages that already exist in Java}
-Some classes are already provided in the Java language API and organized in packages.
+\begin{frame}{Packages included in Java platform}
+
 \begin{itemize}
-  \item java.lang: Basic classes for Java programs (ex: String, Character, Integer\ldots{})
-  $\Rightarrow$ imported automatically
-  \item java.io: Input/Output (files\ldots{})
-  \item java.math: math operations (cos, sin, random\ldots{})
-  \item java.util: useful methods, like Collections (lists, sets\ldots{}), logs, etc.
+  \item \texttt{java.lang}: Basic classes \hfill \textit{imported automatically}\\
+  \texttt{String}, \texttt{Character}, \texttt{Integer}\ldots{}\\
+%
+  \medskip
+  \item \texttt{java.io}: Input/Output\\
+  \texttt{File}\ldots{}
+%
+  \medskip
+  \item \texttt{java.util}: useful structures \& methods\\
+  \texttt{Collections}, \texttt{List}, \texttt{Set}, \texttt{Random}\ldots{}
+%
+  \medskip
+  \item \texttt{java.math}: math operations
+  \texttt{cos()}, \texttt{sin()}\ldots{}
+%
+  \medskip
   \item \ldots{}
+%
+  \bigskip
+  \item Extensive list in the official doc:\\
+  \url{http://docs.oracle.com/javase/8/docs/api/}
 \end{itemize}
-\end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{How to import classes}
-\begin{itemize}
-  \item \textbf{Complete list \& description of language packages \& classes}:\\
-  \url{http://docs.oracle.com/javase/7/docs/api/}
-  \vspace{2em}
-  \item It is possible to import external classes (either those provided with Java or one's own) using \texttt{import}
-\end{itemize}
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]{Example of importing Java's class for dynamic arrays (java.util.Vector)}
-\begin{lstlisting}[escapechar=\%,label=myvectorpackage,caption=MyVector.java.]
+\begin{frame}[fragile]{Example of importing \texttt{java.util.ArrayList}}
+
+\begin{lstlisting}[escapechar=\%,label=myarraylistpackage,caption=MyArrayList.java]
 package fr.tse.java;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
-public class MyVector {
+public class MyArrayList {
   public static void main(String[] args) {
     System.out.println("Bonjour");
-    Vector<String> v = new Vector<String>();
+    ArrayList<String> v = new ArrayList<String>();
   }
 }
 \end{lstlisting}
-Description of Java's Vector class:\\
-\url{http://docs.oracle.com/javase/7/docs/api/java/util/Vector.html}
-\end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]{Pointeurs and parameters}
-
-\begin{table}
-    \begin{tabular}{|l|l|}
-        $C++$           & Java           \\
-        \texttt{Pair origin;}     & \texttt{Pair origin = new Pair();} \\
-        \texttt{Pair *p, *q, *r;} & \texttt{Pair p, q, r;}            \\
-        \texttt{origin.x = 0;}    & \texttt{origin.x = 0;}            \\
-        \texttt{p = new Pair;}    & \texttt{p = new Pair();}           \\
-        \texttt{p -> y = 5;}      & \texttt{p.y = 5;}                  \\
-        \texttt{q = p;}           & \texttt{q = p;}                    \\
-        \texttt{r =  \& origin;}  & \texttt{not possible}              \\
-    \end{tabular}
-\end{table}
-
-\danger{}~If the parameter is a List of Objects, these Objects can be
-modified (behind the hood, the List contains references)!!!
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]{Delete?}
-  \vspace{.2em}
+  \bigskip
 \begin{itemize}
-    \item The \texttt{new} keyword exists, what about \texttt{delete}?
-    \pause
-    \item There is no such operator in Java!!!
-    \item \textbf{Java manages the memory itself}
-    \item With the «~\textbf{Garbage Collector}~» principle
-    \item It's a module of the JVM that removes Object from memory when they are not use (referenced) anymore
-    \medskip
-    \item Pros? Cons?
+  \item Description of Java's ArrayList class:\\
+  \url{http://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html}
 \end{itemize}
-\pause
-\centering{
-\includegraphics[height=0.4\textheight]{./img/garbage.png}
-}
+
 \end{frame}
 
 
-\subsection{Classpath}
-
+\subsection{JAR files}
+   \begin{frame}{Outline}
+       \tableofcontents[currentsubsection]
+   \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Archive JAva (JAR files)}
+\begin{frame}{Java ARchive (JAR files)}
 \begin{itemize}
-    \item It is possible to assemble all the \texttt{.class} files into an Archive JAva (JAR file, extension \texttt{.jar})\\
+    \item Assemble all the \texttt{.class} files into an executable\footnote{A Java ARchive (JAR) file, with extension \texttt{.jar}}\\
     \texttt{jar -cf MyClass.jar ./fr}
     \pause
-    \item It is also possible to run/execute this \texttt{jar} file\\
-    \texttt{java -jar MyClass.jar}.
+    \medskip
+    \item Execute this \texttt{jar} file\\
+    \texttt{java -jar MyClass.jar}
     \pause
-    \item Under the condition to provide the JVM with the name of the main Class (the one to execute as entry point):
+    \medskip
+    \item Requires the name of the main Class (entry point: \texttt{main()}):
     \begin{itemize}
-      \item Create a file \texttt{MANIFEST.MF} in a \texttt{./META-INF/} directory
-      \item Append \texttt{Main-Class: fr.tse.java.MyClass} in this file
-      \item Add this file to the Java Archive:\\
-      \texttt{jar -cmvf  MyClass.jar ./fr}
+      \item Config file: \texttt{./META-INF/MANIFEST.MF}:\\
+      \texttt{Main-Class: fr.tse.java.MyClass}
+      \item Add this file to the \texttt{jar}:\\
+      \texttt{jar -cmvf MyClass.jar ./fr}
     \end{itemize}
 \end{itemize}
 \end{frame}
 
 
+\subsection{Classpath}
+   \begin{frame}{Outline}
+       \tableofcontents[currentsubsection]
+   \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Classpath}
-\begin{itemize}
-    \item OK. Now we have a \texttt{.jar} file that contains multiple \texttt{.class}es.
-    \item How to use another project's code that is in another \texttt{jar file}?
-    \item It is possible to provide the JVM with a list of external libraries where to look for \texttt{import}ed classes
-    \item The list of all the paths for these librairies (Java's and our own's) is called the \textbf{classpath}.
-\end{itemize}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Classpath}
-
-  The \textbf{classpath} is a list of paths to \texttt{.jar} or
-  \texttt{.zip} archives. Each element of the list can be:
-\begin{itemize}
-    \item A directory: where to look for \texttt{.class} (in their sub-directories)
-    \item A \texttt{.jar} or \texttt{.zip} file.
+  \begin{itemize}
+    \item Context:
+    \begin{itemize}
+      \item My code is in a \texttt{jar} file
+      \item It \texttt{imports} library classes from other \texttt{jar} files
+    \end{itemize}
+    \medskip
+    \item Problem: How do I tell the JVM where to look for \texttt{import}ed classes?
+    \bigskip
+    \item Solution: The \textbf{CLASSPATH}, is a list of all the pathes where to find these librairies (both Java's and our own's)
   \end{itemize}
+\end{frame}
 
-Example of a classpath under Linux or MacOS (le separator is ``:''\footnote{The separator is ``;'' under Windows.}):\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Classpath}
+  \begin{itemize}
+    \item \textbf{CLASSPATH} = list of pathes to external code
+\medskip
+    \item It is generally stored in an Environment Variable
+    \item Each element can be:
+    \begin{itemize}
+      \item A directory (with \texttt{.class} in its sub-directories)
+      \item A \texttt{.jar}
+      \item A \texttt{.zip} file (mostly used internally by JVM)
+    \end{itemize}
+    \item Separator: \texttt{``:''} (Unices: Linux/MacOS) or \texttt{``;''} (Windows)
+\end{itemize}
+\bigskip
+Example of a CLASSPATH:\\
 {\footnotesize \texttt{.:/home/prog/lib/:/usr/lib/java/log4j-1.2.11.jar:../lib-ext/junit.jar}}
 \end{frame}
 
-%% HERE
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-The classpath\\
-{\footnotesize \texttt{.:/home/prog/lib/:/usr/lib/java/log4j-1.2.11.jar:../lib-ext/junit.jar}}
+\begin{frame}{Classpath -- Example}
+
+{\footnotesize
+  \texttt{
+    \textcolor{red}{.}:\textcolor{green}{/home/prog/lib/}:\textcolor{blue}{/usr/lib/java/log4j-1.2.11.jar}:\textcolor{brown}{../lib-ext/junit.jar}
+  }
+}
 is composed of:
 \begin{itemize}
-    \item \texttt{.class} in current directory  (.)
-    \item \textbf{.class} in directory/home/prog/lib/
-    \item Classes from archive \texttt{log4j-1.2.11.jar} found in
-    \textit{absolute} path \texttt{/usr/lib/java/log4j-1.2.11.jar}
-    \item Classes form archive \texttt{junit.jar} find in
-    \textit{relative} path \texttt{../lib-ext/junit.jar}
+    \item All \texttt{.class} in current directory (\texttt{\textcolor{red}{.}} \& subdirs)
+    \item All \texttt{.class} in \texttt{\textcolor{green}{/home/prog/lib/}} (\& subdirs)
+    \item Classes from archive \texttt{\textcolor{blue}{log4j-1.2.11.jar}} found in\\
+    \textit{absolute} path \texttt{\textcolor{blue}{/usr/lib/java/}}
+    \item Classes form archive \texttt{\textcolor{brown}{junit.jar}} found in\\
+    \textit{relative} path \texttt{\textcolor{brown}{../lib-ext/}}
 \end{itemize}
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{How to provide the \textbf{classpath} compile/run-time?}
-\begin{itemize}
+  \begin{itemize}
     \item Option \texttt{-classpath} du compilateur
-        \begin{itemize}
-            \item \texttt{javac -classpath ./:/home/prog/lib/  MyClass.java}
+    \begin{itemize}
+      \item \texttt{javac -classpath ./:/home/prog/lib/  MyClass.java}
     \end{itemize}
+    \bigskip
     \item Option \texttt{-cp} of the JVM
     \begin{itemize}
-        \item \texttt{java -cp ./:/home/prog/lib/  MyClass}
-        \item \texttt{java -cp ./:/home/prog/lib/  fr.tse.java.MyClass}
+      \item \texttt{java -cp ./:/home/prog/lib/  MyClass}
+      \item \texttt{java -cp ./:/home/prog/lib/  fr.tse.java.MyClass}
     \end{itemize}
-\end{itemize}
-
+  \end{itemize}
 \end{frame}
+
+
+\section{Your turn}
+
+\subsection{Java -- Manually}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Sump Up -- Running Java Manually}
@@ -562,13 +827,14 @@ Let's do a live coding demo with Text Editor+Command Line!!!
 \end{itemize}
 \end{frame}
 
+\subsection{Java -- with Eclipse}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Sump Up -- Eclipse}
 Let's do a 2$^{\text{nd}}$ live coding demo, with Eclipse IDE!!!
 \begin{itemize}
   \item Start Eclipse
   \item Select workspace (\& accept forever?)
-  \item Create a Java/Maven Project
+  \item Create a \textbf{Java/Maven Project}
   \item Observe the Project herarchy is automatically created
   \item Create a Package $\Rightarrow$ the dirs are created automatically
   \item Create a Class $\Rightarrow$ file/class names correspond!
@@ -577,278 +843,8 @@ Let's do a 2$^{\text{nd}}$ live coding demo, with Eclipse IDE!!!
 \end{itemize}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Inheritance and Interfaces}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]{Declare a Class}
-\vspace{-1em}
-  \begin{lstlisting}[escapechar=\%,label=expers,caption=Person.java,basicstyle=\scriptsize]
-public class Person {
-    // Attributes
-    private String lastName;
-    private String firstName;
-    // Methods (Constructor)
-    public Person (String n, String p) {
-        lastName=n;
-        firstName=p;
-    }
-    public void display() {
-        System.out.println("First Name: "+firstName+", Last Name: "+lastName);
-    }
-    public String getName() {
-      return name;
-    }
-}
-\end{lstlisting}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]{Inheritance -- 1}
-\vspace{-1em}
-\begin{lstlisting}[escapechar=\%,label=exelv,caption=Student.java,basicstyle=\scriptsize]
-public class Student extends Person {
-    // Attributes
-    private int year;
-    // Methods (Constructor)
-    public Student(String n, String p, int a) {
-       super(n,p);
-       year=a;
-    }
-    @Override
-    public void display() {
-        System.out.println("Name: "+firstName+" "+lastName+" ("+year+")");
-    }
-\end{lstlisting}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Inheritance -- 2}
-\begin{itemize}
-  \item Problem:\\
-  Parent \& Child classes are \textbf{tightly coupled} $\Rightarrow$ low reusability
-  \bigskip
-  \item To prevent too much coupling, Java:
-  \begin{itemize}
-    \item Does \textbf{not} allow multiple inheritance,
-    \item Proposes the concept of \texttt{interfaces}.
-  \end{itemize}
-\end{itemize}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Interfaces\footnote{\url{http://imss-www.upmf-grenoble.fr/prevert/Prog/Java/CoursJava/interface.html}}}
-
- \begin{columns}[t]
-  \begin{column}{.55\linewidth}
-  \begin{block}{Interfaces in Java}
-    An interface defines a behaviour (method prototypes) that must be
-    implemented by classes that realize it.
-  \end{block}
-  \end{column}
-
-  \begin{column}{.40\linewidth}
-    \begin{block}{}
-      \includegraphics[height=0.6\textheight]{./img/wat.png}
-    \end{block}
-  \end{column}
- \end{columns}
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Interfaces}
-\begin{itemize}
-    \item \textbf{Interfaces} list \textbf{methods} common to all the classes that will implementing it;
-    \item Inheritance is reserved for when necessary (ex: a Student \textbf{is a} Person);
-    \item Interfaces are \textbf{contracts} that the implementing classes must follow;
-    \item Interface do \textbf{NOT} detail the \textbf{implementation} of these methods (i.e. all methods are abstract!)\footnote{This changed in Java~8!};
-    \item When a class implements an interface, one can be \textbf{certain} that the methods declared in the interface are present.
-\end{itemize}
-\end{frame}
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]{Interface: Example -- 1\footnote{\url{http://docs.oracle.com/javase/tutorial/java/concepts/interface.html}}}
-\vspace{-1em}
-\begin{lstlisting}[escapechar=\%,label=intex,caption=Bicycle.java,basicstyle=\footnotesize]
-interface Bicycle {
-  // Interfaces do not have attributes
-
-  void changeCadence(int newValue); // Wheel revolutions per minute
-
-  void changeGear(int newValue);
-
-  void speedUp(int increment);
-
-  void applyBrakes(int decrement);
-}
-\end{lstlisting}
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]{Interface: Example -- 2}
-\vspace{-1.2em}
-\begin{lstlisting}[escapechar=\%,label=intex,caption=ACMEBicycle.java,basicstyle=\footnotesize]
-class ACMEBicycle implements Bicycle {
-    int cadence = 0; // Class has attributes
-    int speed = 0;
-    int gear = 1;
-    void changeCadence(int newValue) { // Methods ARE implemented
-         cadence = newValue;
-    }
-    void changeGear(int newValue) {
-         gear = newValue;
-    }
-    void speedUp(int increment) {
-         speed = speed + increment;
-    }
-    ...
-}
-\end{lstlisting}
-\end{frame}
-
-
-\section{Documentation -- Javadoc}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Javadoc tool}
-\begin{itemize}
-  \item Comments are introduced by:\\
-  \texttt{/* \ldots{} */} (multi-line) or \texttt{// \ldots{}} (mono-line)
-  \item Class/Attribute/Method \textbf{documentation} is introduced by:\\
-  \texttt{/** */}
-  \item The documentation can contain HTML tags (\texttt{<b>}, \texttt{<code>}\ldots{})
-  \item Documentation comments are split in two parts:
-  {\small
-    \begin{itemize}
-      \item A description in natural language,
-      \item A set of tags to identify specific/important information (\texttt{@Author}, \texttt{@Result}\ldots{}).
-    \end{itemize}
-  }
-  \item JDK provides a tool for generating the documentation: \texttt{javadoc} (\textbf{java doc}umentation);
-\end{itemize}
-\end{frame}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]{Example\footnote{\url{http://tinyurl.com/2vrongv}}}
-\vspace{-1.3em}
-{\small
-  \begin{lstlisting}[escapechar=\%,label=intex,caption=JavadocExample.java,basicstyle=\footnotesize]
-/**
-* <p>Returns an Image object that can then be painted on the screen.</p>
-* <p>The url argument must specify an absolute {@link URL}.
-* The name argument is a specifier that is relative to the url argument.</p>
-* @param  url    An absolute URL of the image
-* @param  name   The image location relative to the url
-* @return        The image at the specified URL
-* @see           Image
-*/
- public Image getImage(URL url, String name) {
-   // do something
-   return null;
-}
-\end{lstlisting}
-}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Result after calling \texttt{javadoc}: navigable HTML}
-\begin{figure}
-\includegraphics[width=1\textwidth]{./img/javadoc.png}
-\end{figure}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Possible Tags\footnote{\url{http://tinyurl.com/8uvaclp}}}
-\begin{itemize}
-    \item \texttt{@author} (classes and interfaces only, required)
-    \item \texttt{@version} (classes and interfaces only, required)
-    \item \texttt{@param} (methods and constructors only)
-    \item \texttt{@return} (methods only)
-    \item \texttt{@exception} (@throws is a synonym added in Javadoc 1.2)
-    \item \texttt{@see}
-    \item \texttt{@since}
-    \item \texttt{@serial} (or @serialField or @serialData)
-    \item \texttt{@deprecated} (see How and When To Deprecate APIs)
-\end{itemize}
-\end{frame}
-
-
-\section{Next steps for the course}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Remainder}
-
- \begin{itemize}
-  \item 3h CM + 33h TD
-  \vspace{3em}
-  \item Each TD spans 3h
-  \begin{itemize}
-    \item Teacher: starts 20 $\rightarrow$ 30 min explanations about a
-    specific topic
-    \item  Students: 2h30+ of coding practice on the topic
-  \end{itemize}
-\end{itemize}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{TDs to come}
-
-{ \small
-  \begin{itemize}
-  \item TD00: Install and Experiments with Eclipse
-  \item TD01: Maven + unit tests
-  \item TD02: Files + Exceptions
-  \item TD03: POJOs + Wrappers + Strings
-  \item TD04: Collections
-  \item TD05: Lambdas
-  \item TD06: (Data Structures) Graphs
-  \item TD07: JDBC
-  \item TD08: (GUIs) Swing
-  \item TD09: (Algorithms) Convex Hull
-  \item TP10: Multithreading
-  \item TP11: Introspection
-\end{itemize}
-}
-\end{frame}
-
-\section{Your turn to play with Eclipse!!}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Goal}
-\begin{itemize}
-    \item Open Eclipse \& set workspace
-    \item Play with Java/Maven Projects
-    \item Create Classes, Interfaces\ldots{}
-    \smallskip
-    \item Create a Hello World project (classes, run configuration\ldots{})
-    \smallskip
-    \item Create a more complete program: University, Students, Professors\ldots\\
-    (with inheritence Professor/Student, interfaces\ldots{})
-    \smallskip
-    \item Write \& compile Javadoc
-    \smallskip
-    \item Package the code into a single JAR file \& run it
-    \item \ldots
-\end{itemize}
-\end{frame}
-
-
-\section*{References}
+\section{References}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{References}
@@ -865,33 +861,135 @@ class ACMEBicycle implements Bicycle {
   \url{https://dzone.com/refcardz/getting-started-eclipse}\\
   \url{https://dzone.com/refcardz/core-java}\\
   \url{https://dzone.com/refcardz/getting-started-java-gui}
+  \url{https://www.jrebel.com/search/results?keys=cheat\%20sheet}
 
-  \item \textbf{Cool sites}\\
+  \item \textbf{Tutorials sites}\\
   \url{https://www.baeldung.com/}\\
   \url{https://www.tutorialspoint.com/java/index.htm}\\
-  \url{https://jrebel.com/resources/}\\
+
+  \item \textbf{News sites}\\
   \url{https://dzone.com/}\\
+  \url{https://jrebel.com/resources/}\\
+  \url{https://www.infoq.com/}
 
   \item \textbf{Complete course}\\
   \url{http://jmdoudoux.developpez.com/cours/developpons/java/}
 
-  \item \textbf{Detailed info on specific topics}\\
+  \item \textbf{Glossary}\\
   \url{http://mindprod.com/jgloss/jcheat.html}
 
-  \item \textbf{Programming correctly}\\
+  \item \textbf{Books}
+  \begin{itemize}
+  {\tiny
+    \item \textbf{UK} NoStarch, OReilly, Manning, Packt
+    \item \textbf{FR} Eyrolles, Dunod
+  }
+  \end{itemize}
+
+  \item \textbf{Programming cleanly}\\
+  \url{https://www.worldcat.org/title/java-by-comparison-become-a-java-craftsman-in-70-examples/oclc/1035454599&referer=brief_results} \\
   \url{https://github.com/GMTSE/ProjetsJavaMaterial/blob/master/JavaByComparisonSumUp.md}
 
 \end{itemize}
-
 }
 
 \end{frame}
 
 
 
+\section{Summary}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\centerline{The End}
+\begin{frame}{Sump Up}
+  \begin{itemize}
+    \item Java follows \textbf{OOP paradigm}
+    \item Java is \textbf{widely used}
+\medskip
+    \item Code in \texttt{.java} files (filename = Class name)
+    \item Code organized in \textbf{packages} (many provided in Java platform)
+    \item Compile\\
+    \texttt{javac MyClass.java}
+    \item Execute\\
+    \texttt{java MyClass}
+\medskip
+    \item We will learn \textbf{Java~8} features
+    \item We will use \textbf{Eclipse} to write code
+    \item We will use \textbf{Maven} to compile/manage deps
+  \end{itemize}
+\end{frame}
+
+
+
+\section*{Maven}
+   \begin{frame}{Outline}
+       \tableofcontents[currentsubsection]
+   \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{\href{https://maven.apache.org/}{Maven}}
+  \begin{itemize}
+    \item<1-> Goal: Manage compilation chain \& dependencies
+    \bigskip
+    \item<2-> Uses conventions\\
+    \onslide<3-4>{
+      \medskip
+        \begin{itemize}
+          \item<3-4> Project architecture
+          \medskip
+          \item<4> Pre-configured rules:\\
+          \texttt{clean}, \texttt{compile}\ldots{}
+        \end{itemize}
+    }
+    \bigskip
+    \item<5-> Configuration via \texttt{pom.xml} file
+    \bigskip
+    \item<6-> Example usage:\\
+    \texttt{mvn clean compile}
+    \bigskip
+    \item<7-> We will let Eclipse do (most of) that for us!!
+  \end{itemize}
+
+  \begin{textblock*}{0.4\linewidth}(6cm,3cm)%
+    \onslide*<3-4>{
+      \includegraphics[width=3cm]{./images01/maven-project.png}
+    }
+  \end{textblock*}
+  \begin{textblock*}{0.4\linewidth}(8cm,3cm)%
+    \onslide*<4>{
+      \includegraphics[width=6cm]{./images01/maven-lifecycle.png}
+    }
+  \end{textblock*}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Maven -- Example \texttt{pom.xml} file}
+
+  \begin{lstlisting}[language=xml,
+    basicstyle={\tiny \ttfamily},
+    keywordstyle={\color{dkgreen}},
+    commentstyle={\color{dkgreen}},
+    stringstyle=
+    ]
+    <project>
+    <!-- model version is always 4.0.0 for Maven 2.x POMs -->
+    <modelVersion>4.0.0</modelVersion>
+    <!-- project coordinates, i.e. a group of values which uniquely identify this project -->
+    <groupId>com.mycompany.app</groupId>
+    <artifactId>my-app</artifactId>
+    <version>1.0</version>
+    <!-- library dependencies -->
+    <dependencies>
+    <dependency>
+    <!-- coordinates of the required library -->
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>3.8.1</version>
+    <!-- this dependency is only used for running and compiling tests -->
+    <scope>test</scope>
+    </dependency>
+    </dependencies>
+    </project>
+  \end{lstlisting}
+
 \end{frame}
 
 
