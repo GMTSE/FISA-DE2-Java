@@ -4,5 +4,5 @@ clean:
 dist-clean: clean
 	\rm -f *.pdf
 
-%pdf: %tex *.tex
+%pdf: %tex *.tex images*/*
 	pdflatex $< && pdflatex $<
