@@ -12,8 +12,17 @@ xcolor={pdftex,svgnames} % dvipsnames, dvipsnames*, svgnames, svgnames*, x11name
 
 \usetheme{Copenhagen} % AnnArbor,Antibes,Bergen,Berkeley,Berlin,Boadilla,CambridgeUS,Copenhagen,Darmstadt,Dresden,Frankfurt,Goettingen,Hannover,Ilmenau,JuanLesPins,Luebeck,Madrid,Malmoe,Marburg,Montpellier,PaloAlto,Pittsburgh,Rochester,Singapore,Szeged,Warsaw,boxes,default
 
-% Disable NavigationBar
-\beamertemplatenavigationsymbolsempty
+% Remove navigation bar
+\setbeamertemplate{navigation symbols}{}
+% Remove outline at top
+\setbeamertemplate{headline}{}
+
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
 
 % Correct French/English indentation and splitting of words
 \usepackage{babel}
@@ -51,10 +60,12 @@ xcolor={pdftex,svgnames} % dvipsnames, dvipsnames*, svgnames, svgnames*, x11name
 
 % Info for title page
 \title[OOP in Java]{Object-Oriented Programming in Java}
-\logo{\includegraphics[width=1cm]{images/logo_tse.png}}
+\logo{\includegraphics[width=1cm]{images00/logo_tse.png}}
 \author[\me{}]{\me{}}
-\institute[TSÉ + LHC]{
+\institute[TSÉ + LabHC]{
   \inst{Télécom Saint-Étienne, Laboratoire Hubert-Curien}%
+  \medskip
+  {\emph{\{pénom.nom\}@univ-st-etienne.fr}}
 }
 \date[09/14/2020]{14~September~2019}
 \subject{OOP in Java}
@@ -69,60 +80,11 @@ xcolor={pdftex,svgnames} % dvipsnames, dvipsnames*, svgnames, svgnames*, x11name
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Who am I?}
-
-  \begin{itemize}
-%
-    \item Associate Professor in computer science, LRU
-%
-    \vspace{2em}
-    \item \textbf{Teachings @TSÉ}
-    \vspace{.5em}
-    \begin{itemize}
-      \item C/C++, Java, Spring
-      \item Soft. Eng., Algo
-      \item HPP, Secu, DevOps, Data
-    \end{itemize}
-%
-    \vspace{2em}
-    \item \textbf{Research @LHC}
-    \vspace{.5em}
-    \begin{itemize}
-      \item Research in «~Data Intelligence team~»
-      \item BCI/EEGs, Privacy
-      \item (IA, Multi-Agent, BlockChain, QuantumML)
-    \end{itemize}
-%
-    \vspace{2em}
-    \item Thanks Christophe \textsc{Gravier} for the material!
-%
-  \end{itemize}
-
-\begin{textblock*}{2cm}(8.7cm,4.5cm)%
-  \includegraphics[width=1.7cm]{images/bci3.png}
-\end{textblock*}%
-
-\begin{textblock*}{2cm}(11.5cm,5.5cm)%
-  \includegraphics[width=.8cm]{images/ibmq.jpeg}
-\end{textblock*}%
-
-\begin{textblock*}{2cm}(9.2cm,6.5cm)%
-  \includegraphics[width=2cm]{images/ants.jpeg}
-\end{textblock*}%
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Who are you?}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Lessons \& Labs}
 
   \begin{itemize}
 %
-    \item One plenary lesson
+    \item One plenary lesson (today!)
     \vspace{.5em}
     \begin{itemize}
       \item Labs organization
@@ -135,7 +97,7 @@ xcolor={pdftex,svgnames} % dvipsnames, dvipsnames*, svgnames, svgnames*, x11name
     \item $\approx$10 labs
     \vspace{.5em}
     \begin{itemize}
-      \item Introduce a (few) new concept(s) $\Rightarrow$ practice it
+      \item Introduce a (few) new concept(s) $\Rightarrow$ practice them
     \end{itemize}
 %
     \vspace{2em}
@@ -177,17 +139,17 @@ xcolor={pdftex,svgnames} % dvipsnames, dvipsnames*, svgnames, svgnames*, x11name
 \begin{frame}{Outline}
 
   \begin{enumerate}
-    \item Getting Started
-    \item Files + Exceptions
-    \item POJOs + Strings + Wrappers
-    \item Collections
-    \item Java8 : Lambdas, Streams
-    \item OOP: Instances, Encapsulation, Inheritance, Polymorphism
-    \item (Data Structures) Graphs
-    \item (Data Base) JDBC
-    \item (GUI) Swing
-    \item (Algorithms) ConvexHull
-    \item Mini-project [Multi-Threading, Introspection]
+    \item TD00 Intro + Getting Started
+    \item TD01 Files + Exceptions
+    \item TD02 POJOs + Strings + Wrappers
+    \item TD03 OOP: Encapsulation + Inheritance + Polymorphism % Instances + 
+    \item TD04 Collections
+    \item TD05 Java8: Lambdas, Streams
+    \item TD06 (Data Structures) Graphs
+    \item TD07 (Data Base) JDBC
+    \item TD08 (GUI) Swing
+    \item TD09 (Algorithms) ConvexHull
+    \item TD10--TD11 Mini-project [Multi-Threading, Introspection]
   \end{enumerate}
 
 \end{frame}
