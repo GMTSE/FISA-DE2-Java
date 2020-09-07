@@ -851,6 +851,8 @@ Let's do a 2$^{\text{nd}}$ live coding demo, with Eclipse IDE!!!
 
 %\vspace{-.5em}
 
+% TODO: Dépasse => splitter en 2 ?
+
 {\tiny
 \begin{itemize}
 
@@ -860,7 +862,10 @@ Let's do a 2$^{\text{nd}}$ live coding demo, with Eclipse IDE!!!
   \item \textbf{A few useful CheatSheets}\\
   \url{https://dzone.com/refcardz/getting-started-eclipse}\\
   \url{https://dzone.com/refcardz/core-java}\\
-  \url{https://dzone.com/refcardz/getting-started-java-gui}
+  \url{https://dzone.com/refcardz/getting-started-java-gui} \\
+  \url{https://dzone.com/refcardz/apache-maven-2} \\
+  \url{https://dzone.com/refcardz/getting-started-git} \\
+  \url{https://www.jrebel.com/system/files/git-cheat-sheet.pdf}\\
   \url{https://www.jrebel.com/search/results?keys=cheat\%20sheet}
 
   \item \textbf{Tutorials sites}\\
@@ -885,6 +890,7 @@ Let's do a 2$^{\text{nd}}$ live coding demo, with Eclipse IDE!!!
     \item \textbf{FR} Eyrolles, Dunod
   }
   \end{itemize}
+% Git: https://git-scm.com/book/en/v2
 
   \item \textbf{Programming cleanly}\\
   \url{https://www.worldcat.org/title/java-by-comparison-become-a-java-craftsman-in-70-examples/oclc/1035454599&referer=brief_results} \\
@@ -920,11 +926,8 @@ Let's do a 2$^{\text{nd}}$ live coding demo, with Eclipse IDE!!!
 
 
 \section*{Maven}
-   \begin{frame}{Outline}
-       \tableofcontents[currentsubsection]
-   \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]{\href{https://maven.apache.org/}{Maven}}
+\begin{frame}[fragile]{\href{https://maven.apache.org/}{\color{white} Maven}\footnote{\url{https://dzone.com/refcardz/apache-maven-2}}}
   \begin{itemize}
     \item<1-> Goal: Manage compilation chain \& dependencies
     \bigskip
@@ -989,6 +992,95 @@ Let's do a 2$^{\text{nd}}$ live coding demo, with Eclipse IDE!!!
     </dependencies>
     </project>
   \end{lstlisting}
+
+\end{frame}
+
+
+\section*{Git}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Git \href{https://dzone.com/refcardz/getting-started-git}{[1]} \href{https://git-scm.com/book/en/v2}{[2]}}
+
+{\scriptsize
+  \begin{itemize}
+    \item \textit{(Good way to create a portfolio)}
+    \item Ditributed Management of source code files, diffs, versions\ldots{}
+    \item Repository: local copy vs. centrally share repo
+    \item Git manages only files, \textbf{not} (directly) directories
+    \item To create a repository:\\
+    \texttt{git init mylocalcopy/}
+    \item To get an existing repository:\\
+    \texttt{git clone https://the-repo-url}  \hfill \textit{From here, we are inside \texttt{mylocalcopy/}}
+    \bigskip
+%
+    \item To tell git to manage a given file:\\
+    \texttt{git add myfile.java}
+    \item To check what git thinks of the files:\\
+    \texttt{git status [myfile.java]}
+    \item To tell git to ``store/accept'' the new version locally:\\
+    \texttt{git commit -m "My message" myfile.java}
+    \item To tell git to ``push'' the new version to everybody (remote):\\
+    \texttt{git push}
+    \item To get the lastest version from the others (remote):\\
+    \texttt{git pull}
+  \end{itemize}
+}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{GitLab \href{https://gitlab.com}{\color{white}{[1]}}}
+  \begin{itemize}
+    \item<1-> Create an account\\
+    \url{https://github.com/join?ref_cta=Sign+up}
+    \bigskip
+%
+    \item<2-> Create a project\\
+    \onslide*<2>{\includegraphics[width=.7\linewidth]{./images01/gitlab-create-project.png}}
+    \onslide*<3>{\includegraphics[width=.7\linewidth]{./images01/gitlab-create-project2.png}}
+    \bigskip
+%
+    \item<4-> Get it:\\
+    { \small
+      \texttt{git clone https://gitlab.com/<user>/<project>}
+    }
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{GitHub \href{https://github.com}{\color{white}{[1]}}}
+  \begin{itemize}
+    \item<1-> Create an account\\
+    \url{https://gitlab.com/users/sign\_in\#register-pane}
+    \bigskip
+%
+    \item<2-> Create a project\\
+    \onslide*<2>{\includegraphics[width=.7\linewidth]{./images01/github-create-project.png}}
+    \onslide*<3>{\includegraphics[width=.7\linewidth]{./images01/github-create-project2.png}}
+    \bigskip
+%
+    \item<4-> Get it:\\
+    { \small
+      \texttt{git clone https://github.com/<user>/<project>.git}
+    }
+  \end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Git with Eclipse}
+
+  \begin{itemize}
+    \item Install the eGit plugin
+    \url{https://www.youtube.com/embed/WSdIbqw7Kz4}
+    \bigskip
+%
+    \item Import the repository
+    \url{https://www.youtube.com/embed/Fv_5KEN6Ix4}
+    \bigskip
+%
+    \item Clone the content
+    \url{https://www.youtube.com/embed/r77J-r0Pv74}
+  \end{itemize}
 
 \end{frame}
 
