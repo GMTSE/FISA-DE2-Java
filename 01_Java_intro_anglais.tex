@@ -132,9 +132,11 @@ If you don't already have another JDK/IDE/Text Editor:
     \url{https://www.eclipse.org/downloads/}
 \medskip
     \item Download a Text Editor with syntax coloring
-    \href{https://alternativeto.net/software/notepad-plus-plus/}{Notepad++} or \\
-    \href{https://alternativeto.net/software/atom/}{Atom} or \\
-    \href{https://alternativeto.net/software/gedit/}{GEdit}
+    \begin{itemize}
+      \item \href{https://alternativeto.net/software/notepad-plus-plus/}{Notepad++} or
+      \item \href{https://alternativeto.net/software/atom/}{Atom} or
+      \item \href{https://alternativeto.net/software/gedit/}{GEdit}
+    \end{itemize}
   \end{itemize}
 
 \end{frame}
@@ -897,13 +899,8 @@ Let's do a 2$^{\text{nd}}$ live coding demo, with Eclipse IDE!!!
   \url{http://mindprod.com/jgloss/jcheat.html}\\
   \url{https://dzone.com/articles/java-glossary-and-the-core-concepts}
 
-  \item \textbf{Books}
-  \begin{itemize}
-  {\tiny
-    \item \textbf{UK} NoStarch, OReilly, Manning, Packt
-    \item \textbf{FR} Eyrolles, Dunod
-  }
-  \end{itemize}
+  \item \textbf{Books}: [\textbf{UK}] NoStarch, OReilly, Manning, Packt ; [\textbf{FR}] Eyrolles, Dunod
+
 % Git: https://git-scm.com/book/en/v2
 
   \item \textbf{Programming cleanly}\\
@@ -936,167 +933,5 @@ Let's do a 2$^{\text{nd}}$ live coding demo, with Eclipse IDE!!!
     \item We will use \textbf{Maven} to compile/manage deps
   \end{itemize}
 \end{frame}
-
-
-
-\section*{Maven}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]{\href{https://maven.apache.org/}{\color{white} Maven}\footnote{\url{https://dzone.com/refcardz/apache-maven-2}}}
-  \begin{itemize}
-    \item<1-> Goal: Manage compilation chain \& dependencies
-    \bigskip
-    \item<2-> Uses conventions\\
-    \onslide<3-4>{
-      \medskip
-        \begin{itemize}
-          \item<3-4> Project architecture
-          \medskip
-          \item<4> Pre-configured rules:\\
-          \texttt{clean}, \texttt{compile}\ldots{}
-        \end{itemize}
-    }
-    \bigskip
-    \item<5-> Configuration via \texttt{pom.xml} file
-    \bigskip
-    \item<6-> Example usage:\\
-    \texttt{mvn clean compile}
-    \bigskip
-    \item<7-> We will let Eclipse do (most of) that for us!!
-  \end{itemize}
-
-  \begin{textblock*}{0.4\linewidth}(6cm,3cm)%
-    \onslide*<3-4>{
-      \includegraphics[width=3cm]{./images01/maven-project.png}
-    }
-  \end{textblock*}
-  \begin{textblock*}{0.4\linewidth}(8cm,3cm)%
-    \onslide*<4>{
-      \includegraphics[width=6cm]{./images01/maven-lifecycle.png}
-    }
-  \end{textblock*}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]{Maven -- Example \texttt{pom.xml} file}
-
-  \begin{lstlisting}[language=xml,
-    basicstyle={\tiny \ttfamily},
-    keywordstyle={\color{dkgreen}},
-    commentstyle={\color{dkgreen}},
-    stringstyle=
-    ]
-    <project>
-    <!-- model version is always 4.0.0 for Maven 2.x POMs -->
-    <modelVersion>4.0.0</modelVersion>
-    <!-- project coordinates, i.e. a group of values which uniquely identify this project -->
-    <groupId>com.mycompany.app</groupId>
-    <artifactId>my-app</artifactId>
-    <version>1.0</version>
-    <!-- library dependencies -->
-    <dependencies>
-    <dependency>
-    <!-- coordinates of the required library -->
-    <groupId>junit</groupId>
-    <artifactId>junit</artifactId>
-    <version>3.8.1</version>
-    <!-- this dependency is only used for running and compiling tests -->
-    <scope>test</scope>
-    </dependency>
-    </dependencies>
-    </project>
-  \end{lstlisting}
-
-\end{frame}
-
-
-\section*{Git}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Git \href{https://dzone.com/refcardz/getting-started-git}{[1]} \href{https://git-scm.com/book/en/v2}{[2]}}
-
-{\scriptsize
-  \begin{itemize}
-    \item \textit{(Good way to create a portfolio)}
-    \item Ditributed Management of source code files, diffs, versions\ldots{}
-    \item Repository: local copy vs. centrally share repo
-    \item Git manages only files, \textbf{not} (directly) directories
-    \item To create a repository:\\
-    \texttt{git init mylocalcopy/}
-    \item To get an existing repository:\\
-    \texttt{git clone https://the-repo-url}  \hfill \textit{From here, we are inside \texttt{mylocalcopy/}}
-    \bigskip
-%
-    \item To tell git to manage a given file:\\
-    \texttt{git add myfile.java}
-    \item To check what git thinks of the files:\\
-    \texttt{git status [myfile.java]}
-    \item To tell git to ``store/accept'' the new version locally:\\
-    \texttt{git commit -m "My message" myfile.java}
-    \item To tell git to ``push'' the new version to everybody (remote):\\
-    \texttt{git push}
-    \item To get the lastest version from the others (remote):\\
-    \texttt{git pull}
-  \end{itemize}
-}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{GitLab \href{https://gitlab.com}{\color{white}{[1]}}}
-  \begin{itemize}
-    \item<1-> Create an account\\
-    \url{https://github.com/join?ref_cta=Sign+up}
-    \bigskip
-%
-    \item<2-> Create a project\\
-    \onslide*<2>{\includegraphics[width=.7\linewidth]{./images01/gitlab-create-project.png}}
-    \onslide*<3>{\includegraphics[width=.7\linewidth]{./images01/gitlab-create-project2.png}}
-    \bigskip
-%
-    \item<4-> Get it:\\
-    { \small
-      \texttt{git clone https://gitlab.com/<user>/<project>}
-    }
-  \end{itemize}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{GitHub \href{https://github.com}{\color{white}{[1]}}}
-  \begin{itemize}
-    \item<1-> Create an account\\
-    \url{https://gitlab.com/users/sign\_in\#register-pane}
-    \bigskip
-%
-    \item<2-> Create a project\\
-    \onslide*<2>{\includegraphics[width=.7\linewidth]{./images01/github-create-project.png}}
-    \onslide*<3>{\includegraphics[width=.7\linewidth]{./images01/github-create-project2.png}}
-    \bigskip
-%
-    \item<4-> Get it:\\
-    { \small
-      \texttt{git clone https://github.com/<user>/<project>.git}
-    }
-  \end{itemize}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Git with Eclipse}
-
-  \begin{itemize}
-    \item Install the eGit plugin
-    \url{https://www.youtube.com/embed/WSdIbqw7Kz4}
-    \bigskip
-%
-    \item Import the repository
-    \url{https://www.youtube.com/embed/Fv_5KEN6Ix4}
-    \bigskip
-%
-    \item Clone the content
-    \url{https://www.youtube.com/embed/r77J-r0Pv74}
-  \end{itemize}
-
-\end{frame}
-
 
 \end{document}
