@@ -1,5 +1,3 @@
-% TODO: include slides from inheritence_interfaces.tex???
-
 \documentclass[English,t,% 't' (resp. 'c') places text vertically at top/center of the slides
 % PDF settings
 hyperref={%
@@ -195,7 +193,7 @@ xcolor={pdftex,svgnames} % dvipsnames, dvipsnames*, svgnames, svgnames*, x11name
 
   \begin{textblock*}{5cm}(10cm,5cm)%
     \begin{tikzpicture}[overlay,remember picture]
-      \onslide*<1-6>{\node (label) at (0,0) {\includegraphics[width=5cm]{images2/car_rental.jpeg}};}
+      \onslide*<1-6>{\node (label) at (0,0) {\includegraphics[width=5cm]{images02/car_rental.jpeg}};}
       % TODO: refaire avec des x/yshifts!!!
       \node (Ca2) at (-1.1,1.6) {};
       \node (Cl2) at (-.9,.5) {};
@@ -364,7 +362,7 @@ xcolor={pdftex,svgnames} % dvipsnames, dvipsnames*, svgnames, svgnames*, x11name
 
   \begin{itemize}
 %
-    \item Over-\textbf{Writing}/\textbf{Riding} \hspace{2em} \includegraphics[width=1em]{images2/writing.png} \hspace{2em} \includegraphics[width=1em]{images2/riding1.png}
+    \item Over-\textbf{Writing}/\textbf{Riding} \hspace{2em} \includegraphics[width=1em]{images02/writing.png} \hspace{2em} \includegraphics[width=1em]{images02/riding1.png}
     \begin{lstlisting}
       public class Human {
         public void setName(String fullName) { // same prototype
@@ -380,7 +378,7 @@ xcolor={pdftex,svgnames} % dvipsnames, dvipsnames*, svgnames, svgnames*, x11name
     \end{lstlisting}
 %
     \vspace{2em}
-    \item Over-\textbf{Loading} \hspace{2em} \includegraphics[width=1em]{images2/overweighted_scale.png}\footnote{prototype/signature = name + arguments\&types (\sout{return}).}
+    \item Over-\textbf{Loading} \hspace{2em} \includegraphics[width=1em]{images02/overweighted_scale.png}\footnote{prototype/signature = name + arguments\&types (\sout{return}).}
     \begin{lstlisting}
       public void setName(String fullName)  // prototypes are different
         ...
@@ -446,48 +444,6 @@ xcolor={pdftex,svgnames} % dvipsnames, dvipsnames*, svgnames, svgnames*, x11name
 
 
 \end{frame}
-
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{Java \& Pointers}
-
-%   \begin{itemize}
-%     \item
-%   \end{itemize}
-
-% \end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Writing re-usable code}
-
-  \begin{itemize}
-    \item Java By Comparison
-    { \tiny \url{https://www.amazon.com/Java-Comparison-Become-Craftsman-Examples/dp/1680502875/} } \\
-    { \tiny \url{https://github.com/GMTSE/ProjetsJavaMaterial/blob/master/JavaByComparisonSumUp.md} }
-{\small
-      \begin{itemize}
-        \item Rule$\sharp$5: always check for \textbf{null args}
-        \item Rule$\sharp$8/$\sharp$14: \textbf{group} code / \textbf{indent}
-        \item Rule$\sharp$72: log in file not console
-        \item Rule$\sharp$11: favor for-each
-        \item Rule$\sharp$15: use string format
-        \item Rule$\sharp$68: 1 \textbf{code style} for the team
-        \item Rule$\sharp$21: template for \textbf{comments}
-        \item Rule$\sharp$29: select \textbf{good names}
-        \item Rule$\sharp$34: catch most specific Exception
-        \item Rule$\sharp$39: close resources
-        \item Rule$\sharp$42: template for Unit Tests
-        \item Rule$\sharp$50: treat edge test cases
-        \item Rule$\sharp$54: favor immutable
-        \item Rule$\sharp$64: use optionals rather than nulls
-      \end{itemize}
-}
-  \end{itemize}
-
-\end{frame}
-
-
 
 
 \end{document}
