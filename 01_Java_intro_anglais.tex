@@ -122,7 +122,7 @@ xcolor={pdftex,svgnames} % dvipsnames, dvipsnames*, svgnames, svgnames*, x11name
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{While I'm talking \texttt{:)}}
 
-If you don't have another JDK/IDE:
+If you don't already have another JDK/IDE/Text Editor:
 \bigskip
   \begin{itemize}
     \item Download \texttt{OpenJDK 8+ (LTS)} / \texttt{HotSpot}
@@ -130,6 +130,11 @@ If you don't have another JDK/IDE:
 \medskip
     \item Download \texttt{Eclipse IDE 2020‑06}
     \url{https://www.eclipse.org/downloads/}
+\medskip
+    \item Download a Text Editor with syntax coloring
+    \href{https://alternativeto.net/software/notepad-plus-plus/}{Notepad++} or \\
+    \href{https://alternativeto.net/software/atom/}{Atom} or \\
+    \href{https://alternativeto.net/software/gedit/}{GEdit}
   \end{itemize}
 
 \end{frame}
@@ -196,6 +201,8 @@ If you don't have another JDK/IDE:
       \item \textbf{9~millions+ Java developers} in the world
       \medskip
       \item \textbf{3~billions+ mobile devices} run Java (Android\ldots{})
+      \medskip
+      \item \href{https://blogs.oracle.com/javamagazine/the-top-25-greatest-java-apps-ever-written}{Many Great Apps}: Minecraft, Wikipedia (search), NASA (Maestro Mars Rover), NSA (\href{https://www.wired.com/story/nsa-ghidra-open-source-tool/}{Ghidra}!) % WikiLeaks
     \end{itemize}
   \end{itemize}
   \medskip
@@ -535,30 +542,32 @@ If you don't have another JDK/IDE:
 \begin{frame}{No \texttt{delete}?}
   \vspace{.2em}
   \begin{itemize}
-    \item The \texttt{new} keyword creates instances
-    \pause
-    \item There is \textbf{no} \texttt{delete} in Java!!!
+    \item<1-> The \texttt{new} keyword creates instances
+    \item<1-> There is \textbf{no} \texttt{delete} in Java!!!
   \end{itemize}
-  \pause
   \bigskip
-  \begin{minipage}[c]{.90\linewidth}
-    \begin{itemize}
-      \item \textbf{Java manages the memory itself}
-      \item The «~\textbf{Garbage Collector}~» does the job
-      \textit{It's a module of the JVM that removes Objects from memory
-        when they are not use (referenced) anymore} \pause
-    \end{itemize}
-  \end{minipage}
-  \begin{minipage}[c]{.05\linewidth}
-    \includegraphics[height=2em]{images01/GarbageCollector.png}
-  \end{minipage}
-\pause
-\begin{itemize}
-  \item \textbf{Pros?} \textbf{Cons?}
-\end{itemize}
-\pause
-\centering{
-  \includegraphics[height=0.4\textheight]{./images01/garbage.png}
+  \onslide<2->{
+    \begin{minipage}[c]{.90\linewidth}
+      \begin{itemize}
+        \item \textbf{Java manages the memory itself}
+        \item The «~\textbf{Garbage Collector}~» does the job
+        \textit{It's a module of the JVM that removes Objects from memory
+          when they are not use (referenced) anymore} \pause
+      \end{itemize}
+    \end{minipage}
+    \begin{minipage}[c]{.05\linewidth}
+      \includegraphics[height=2em]{images01/GarbageCollector.png}
+    \end{minipage}
+  }
+\onslide<3->{
+  \begin{itemize}
+    \item \textbf{Pros?} \textbf{Cons?}
+  \end{itemize}
+}
+\onslide<4->{
+  \centering{
+    \includegraphics[height=0.4\textheight]{./images01/garbage.png}
+  }
 }
 \end{frame}
 
@@ -844,10 +853,10 @@ Let's do a 2$^{\text{nd}}$ live coding demo, with Eclipse IDE!!!
 \end{frame}
 
 
-\section{References}
+\section{Resources}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{References}
+\begin{frame}{Resources}
 
 %\vspace{-.5em}
 
@@ -855,6 +864,10 @@ Let's do a 2$^{\text{nd}}$ live coding demo, with Eclipse IDE!!!
 
 {\tiny
 \begin{itemize}
+
+  \item \textbf{Official Docs}
+  \url{https://docs.oracle.com/javase/tutorial/} \\
+  \url{https://docs.oracle.com/javase/8/docs/api/}
 
   \item \textbf{Eclipse Key Bindings CheatSheet}\\
   \url{https://mootse.telecom-st-etienne.fr/pluginfile.php/9061/mod_resource/content/1/EclipseShortcutCheatSheet.pdf}
@@ -881,7 +894,8 @@ Let's do a 2$^{\text{nd}}$ live coding demo, with Eclipse IDE!!!
   \url{http://jmdoudoux.developpez.com/cours/developpons/java/}
 
   \item \textbf{Glossary}\\
-  \url{http://mindprod.com/jgloss/jcheat.html}
+  \url{http://mindprod.com/jgloss/jcheat.html}\\
+  \url{https://dzone.com/articles/java-glossary-and-the-core-concepts}
 
   \item \textbf{Books}
   \begin{itemize}
