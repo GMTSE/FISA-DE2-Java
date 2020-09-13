@@ -1,3 +1,5 @@
+
+% TODO: lacks a simple introduction to Generics
 \documentclass[English,c,% 't' (resp. 'c') places text vertically at top/center of each slide
 % PDF settings
 hyperref={%
@@ -81,9 +83,9 @@ xcolor={pdftex,svgnames} % dvipsnames, dvipsnames*, svgnames, svgnames*, x11name
   belowskip=1mm,
   showstringspaces=false,
   columns=flexible,
-  basicstyle={\tiny \ttfamily},
+  basicstyle={\scriptsize \ttfamily},
   numbers=left,
-  numberstyle=\tiny\color{gray},
+  numberstyle=\scriptsize\color{gray},
   keywordstyle=\color{blue},
   commentstyle=\color{dkgreen},
   stringstyle=\color{mauve},
@@ -131,7 +133,7 @@ If you don't already have another JDK/IDE/Text Editor:
     \item Download \texttt{Eclipse IDE 2020‑06}
     \url{https://www.eclipse.org/downloads/}
 \medskip
-    \item Download a Text Editor with syntax coloring
+    \item Download a Text Editor with syntax coloring\\
     \begin{itemize}
       \item \href{https://alternativeto.net/software/notepad-plus-plus/}{Notepad++} or
       \item \href{https://alternativeto.net/software/atom/}{Atom} or
@@ -143,7 +145,11 @@ If you don't already have another JDK/IDE/Text Editor:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Disclaimer}
-  This course is an \textbf{introdution}
+
+  \onslide*<1>{\vspace{3cm} \centering Who already knows Java?}
+
+  \onslide<2>{
+  This course is an \textbf{introduction}
   \begin{itemize}
     \item Does \textbf{NOT} cover \textbf{all} Java
     \item Goal: give you enough to understand future TD's intros
@@ -157,6 +163,7 @@ If you don't already have another JDK/IDE/Text Editor:
   \begin{center}
     \includegraphics[height=5em]{./images01/java_logo.png}
   \end{center}
+}
 
 \end{frame}
 
@@ -204,7 +211,6 @@ If you don't already have another JDK/IDE/Text Editor:
       \medskip
       \item \textbf{3~billions+ mobile devices} run Java (Android\ldots{})
       \medskip
-      \item \href{https://blogs.oracle.com/javamagazine/the-top-25-greatest-java-apps-ever-written}{Many Great Apps}: Minecraft, Wikipedia (search), NASA (Maestro Mars Rover), NSA (\href{https://www.wired.com/story/nsa-ghidra-open-source-tool/}{Ghidra}!) % WikiLeaks
     \end{itemize}
   \end{itemize}
   \medskip
@@ -214,6 +220,9 @@ If you don't already have another JDK/IDE/Text Editor:
       \item 3rd in \textbf{Job Postings}
       \item 3rd in \textbf{Average Salary}
     \end{itemize}
+%
+  \item \href{https://blogs.oracle.com/javamagazine/the-top-25-greatest-java-apps-ever-written}{Many Known Apps}: Minecraft, Wikipedia (search), NASA (Maestro Mars Rover), NSA (\href{https://www.wired.com/story/nsa-ghidra-open-source-tool/}{Ghidra}!) % WikiLeaks
+%
   \end{itemize}
 
 \bigskip
@@ -221,6 +230,14 @@ If you don't already have another JDK/IDE/Text Editor:
     \includegraphics[height=8.3cm]{images01/earth1.png}
   \end{center}
 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Don't get it wrong}
+  \begin{center}
+    Java IS \textbf{NOT} JavaScript \\[1.5em]
+    \includegraphics[width=.8\linewidth,height=.6\textheight]{./images01/killegg.jpg}
+  \end{center}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -298,14 +315,6 @@ If you don't already have another JDK/IDE/Text Editor:
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Don't get it wrong}
-  \begin{center}
-    Java IS \textbf{NOT} JavaScript \\[1.5em]
-    \includegraphics[width=.8\linewidth,height=.6\textheight]{./images01/killegg.jpg}
-  \end{center}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Specificities}
 
   The Java platform has some \textbf{specificities}:
@@ -315,7 +324,7 @@ If you don't already have another JDK/IDE/Text Editor:
     \medskip
     \item \textbf{Compiles} source code into bytecode (hardware independent)
     \medskip
-    \item This \textbf{bytecode} is executed (\textbf{interpreted}) on the \textbf{JVM}~\footnote{\textbf{J}ava \textbf{V}irtual \textbf{M}achine}
+    \item This \textbf{bytecode} is executed (\textbf{interpreted}) on the \textbf{JVM}\footnote{\textbf{J}ava \textbf{V}irtual \textbf{M}achine}
     \medskip
     \item \textbf{No} header files, \textbf{no} linking
     \medskip
@@ -366,16 +375,18 @@ If you don't already have another JDK/IDE/Text Editor:
     \medskip
     \item File name = (public) class name
     \medskip
-    \item Compile with: \texttt{javac <file>.java} (\textbf{java c}ompiler)
+    \item Compile with (\textbf{java c}ompiler): \\
+    \texttt{javac <file>.java}
     \medskip
     \item Results in \texttt{.class} file (bytecode)
     \medskip
-    \item Execute with: \texttt{javac <file>}\footnote{NOTE: there is no extension here!} (JVM)
+    \item Execute with (JVM):\\
+    \texttt{javac <file>}\footnote{NOTE: there is no extension here!}
   \end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Source File}
+\begin{frame}{Source File (class $\approx$ C struct + methods)}
 
 \centering{
   \includegraphics[height=0.8\textheight]{./images01/java_intro_sourcefile.png}
@@ -516,7 +527,7 @@ If you don't already have another JDK/IDE/Text Editor:
     p = new Pair;
     p -> y = 5;
     q = p;
-    r =  \& origin;
+    r =  & origin;
    \end{lstlisting}
  \end{minipage}
  \begin{minipage}[l]{.45\textwidth}
@@ -554,7 +565,8 @@ If you don't already have another JDK/IDE/Text Editor:
         \item \textbf{Java manages the memory itself}
         \item The «~\textbf{Garbage Collector}~» does the job
         \textit{It's a module of the JVM that removes Objects from memory
-          when they are not use (referenced) anymore} \pause
+          when they are not used (referenced) anymore}
+        \pause
       \end{itemize}
     \end{minipage}
     \begin{minipage}[c]{.05\linewidth}
@@ -629,7 +641,7 @@ public class MyClass {
 \begin{frame}[fragile]{Packages}
 
 \begin{lstlisting}[escapechar=\%,label=hellopackage,caption=HelloWorld.java]
-package fr.tse.java;      // Declare Package (name == directory where stored!!)
+package fr.tse.java;      // Declare Package (name == dir. where stored!!)
 import java.util.List; // Refers to another class in another Pacakge
 
 public class HelloWorld {
@@ -641,7 +653,7 @@ public class HelloWorld {
 
 {\scriptsize
 \begin{itemize}
-    \item Source code is organised in «~packages~»
+    \item Source code is organized in «~packages~»
     \item Strings separated by points (\texttt{.})
     \item Similar to file path: \textbf{it is indeed!} \\
     File: \texttt{fr/tse/java/HelloWorld.java}
@@ -697,6 +709,7 @@ public class MyArrayList {
   public static void main(String[] args) {
     System.out.println("Bonjour");
     ArrayList<String> v = new ArrayList<String>();
+    // Remember: Java is strongly typed, hence <...>!
   }
 }
 \end{lstlisting}
@@ -752,6 +765,7 @@ public class MyArrayList {
     \end{itemize}
     \medskip
     \item Problem: How do I tell the JVM where to look for \texttt{import}ed classes?
+    \pause
     \bigskip
     \item Solution: The \textbf{CLASSPATH}, is a list of all the pathes where to find these librairies (both Java's and our own's)
   \end{itemize}
@@ -847,10 +861,14 @@ Let's do a 2$^{\text{nd}}$ live coding demo, with Eclipse IDE!!!
   \item Select workspace (\& accept forever?)
   \item Create a \textbf{Java/Maven Project}
   \item Observe the Project herarchy is automatically created
+  \medskip
   \item Create a Package $\Rightarrow$ the dirs are created automatically
   \item Create a Class $\Rightarrow$ file/class names correspond!
+  \medskip
   \item Use autocompletion to create \texttt{main}
   \item Use autocompletion to enter \texttt{sysout}
+  \medskip
+  \item Generate a \texttt{.jar} file
 \end{itemize}
 \end{frame}
 
@@ -864,10 +882,10 @@ Let's do a 2$^{\text{nd}}$ live coding demo, with Eclipse IDE!!!
 
 % TODO: Dépasse => splitter en 2 ?
 
-{\tiny
+\hspace*{-1cm}{\tiny
 \begin{itemize}
 
-  \item \textbf{Official Docs}
+  \item \textbf{Official Docs}\\
   \url{https://docs.oracle.com/javase/tutorial/} \\
   \url{https://docs.oracle.com/javase/8/docs/api/}
 
@@ -907,7 +925,7 @@ Let's do a 2$^{\text{nd}}$ live coding demo, with Eclipse IDE!!!
 % Git: https://git-scm.com/book/en/v2
 
   \item \textbf{Programming cleanly}\\
-  \url{https://www.worldcat.org/title/java-by-comparison-become-a-java-craftsman-in-70-examples/oclc/1035454599&referer=brief_results} \\
+  \url{https://www.worldcat.org/title/java-by-comparison-become-a-java-craftsman-in-70-examples/oclc/1035454599} \\
   \url{https://github.com/GMTSE/ProjetsJavaMaterial/blob/master/JavaByComparisonSumUp.md}
 
 \end{itemize}
