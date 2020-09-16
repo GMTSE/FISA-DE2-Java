@@ -1,4 +1,3 @@
-
 % TODO: lacks a simple introduction to Generics
 \documentclass[English,c,% 't' (resp. 'c') places text vertically at top/center of each slide
 % PDF settings
@@ -441,6 +440,13 @@ If you don't already have another JDK/IDE/Text Editor:
     \texttt{double}, \texttt{\color{red} []}\\
     \texttt{\color{red} String}, \texttt{\color{red} List}, \texttt{\color{red} Set}, \texttt{\color{red} Map}\ldots{}
 
+    \item \textbf{Operators}: \\
+    \begin{tabular}{lp{.5cm}cp{.5cm}l}
+    \texttt{+}, \texttt{-}, \texttt{*}, \texttt{/}, \texttt{\%} && and &&
+    {\color{red} \texttt{++}, \texttt{--}, \texttt{+=}, \texttt{-=}, \texttt{*=}, \texttt{/=}} \\
+    \texttt{\&}, \texttt{|}, \texttt{\textasciitilde} (bit) && vs. && { \color{red} \texttt{\&\&}, \texttt{||}, \texttt{!}} (bool)\\
+    \end{tabular}
+
     \item \textbf{Control Structures}: \\
     \texttt{for}, \texttt{while}/\texttt{do},
     \texttt{break}/\texttt{continue}\\
@@ -478,33 +484,23 @@ If you don't already have another JDK/IDE/Text Editor:
   \begin{itemize}
 %
     \item \textbf{Packages}: lowercase + dots \\
-\begin{verbatim}
-    com.sun.eng
-\end{verbatim} % cannot be indented ? :{
+    \lstinline{com.sun.eng}
     %
     \item \textbf{Classes / Interfaces}: (upper) CamelCase\\
-\begin{verbatim}
-    class ImageSprite;
-    interface RasterDelegate;
-\end{verbatim}
+    \lstinline{class ImageSprite;}\\
+    \lstinline{interface RasterDelegate;}
 %
     \item \textbf{Methods}: dromedaryCase == (lower) camelCase \\
-\begin{verbatim}
-    run();
-    runFast();
-\end{verbatim}
+    \lstinline{run();}\\
+    \lstinline{runFast();}
 %
     \item \textbf{Variables / Attributes}: dromedaryCase \\
-\begin{verbatim}
-    int             i;
-    char            c;
-    float           myWidth;
-\end{verbatim}
+    \lstinline{int             i;}\\
+    \lstinline{char            c;}\\
+    \lstinline{float           myWidth;}
 %
     \item \textbf{Constants}: ALL CAPS + snake\_case \\
-\begin{verbatim}
-    static final int MIN_WIDTH = 4;
-\end{verbatim}
+    \lstinline{static final int MIN_WIDTH = 4;}
 %
 \end{itemize}
 }
@@ -555,7 +551,7 @@ If you don't already have another JDK/IDE/Text Editor:
 \begin{frame}{No \texttt{delete}?}
   \vspace{.2em}
   \begin{itemize}
-    \item<1-> The \texttt{new} keyword creates instances
+    \item<1-> The \lstinline{new} keyword creates instances
     \item<1-> There is \textbf{no} \texttt{delete} in Java!!!
   \end{itemize}
   \bigskip
@@ -654,7 +650,7 @@ public class HelloWorld {
 {\scriptsize
 \begin{itemize}
     \item Source code is organized in «~packages~»
-    \item Strings separated by points (\texttt{.})
+    \item Strings separated by points (\lstinline{.})
     \item Similar to file path: \textbf{it is indeed!} \\
     File: \texttt{fr/tse/java/HelloWorld.java}
     \medskip
@@ -668,23 +664,23 @@ public class HelloWorld {
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Packages included in Java platform}
+\begin{frame}[fragile]{Packages included in Java platform}
 
 \begin{itemize}
   \item \texttt{java.lang}: Basic classes \hfill \textit{imported automatically}\\
-  \texttt{String}, \texttt{Character}, \texttt{Integer}\ldots{}\\
+  \lstinline{String}, \lstinline{Character}, \lstinline{Integer}\ldots{}\\
 %
   \medskip
   \item \texttt{java.io}: Input/Output\\
-  \texttt{File}\ldots{}
+  \lstinline{File}\ldots{}
 %
   \medskip
   \item \texttt{java.util}: useful structures \& methods\\
-  \texttt{Collections}, \texttt{List}, \texttt{Set}, \texttt{Random}\ldots{}
+  \lstinline{Collections}, \lstinline{List}, \lstinline{Set}, \lstinline{Random}\ldots{}
 %
   \medskip
   \item \texttt{java.math}: math operations
-  \texttt{cos()}, \texttt{sin()}\ldots{}
+  \lstinline{cos()}, \lstinline{sin()}\ldots{}
 %
   \medskip
   \item \ldots{}
@@ -698,7 +694,7 @@ public class HelloWorld {
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]{Example of importing \texttt{java.util.ArrayList}}
+\begin{frame}[fragile]{Example of importing \lstinline{java.util.ArrayList}}
 
 \begin{lstlisting}[escapechar=\%,label=myarraylistpackage,caption=MyArrayList.java]
 package fr.tse.java;
@@ -739,7 +735,7 @@ public class MyArrayList {
     \texttt{java -jar MyClass.jar}
     \pause
     \medskip
-    \item Requires the name of the main Class (entry point: \texttt{main()}):
+    \item Requires the name of the main Class (entry point: \lstinline{main()}):
     \begin{itemize}
       \item Config file: \texttt{./META-INF/MANIFEST.MF}:\\
       \texttt{Main-Class: fr.tse.java.MyClass}
@@ -761,10 +757,10 @@ public class MyArrayList {
     \item Context:
     \begin{itemize}
       \item My code is in a \texttt{jar} file
-      \item It \texttt{imports} library classes from other \texttt{jar} files
+      \item It \lstinline{import}s library classes from other \texttt{jar} files
     \end{itemize}
     \medskip
-    \item Problem: How do I tell the JVM where to look for \texttt{import}ed classes?
+    \item Problem: How do I tell the JVM where to look for \lstinline{import}ed classes?
     \pause
     \bigskip
     \item Solution: The \textbf{CLASSPATH}, is a list of all the pathes where to find these librairies (both Java's and our own's)
@@ -865,8 +861,8 @@ Let's do a 2$^{\text{nd}}$ live coding demo, with Eclipse IDE!!!
   \item Create a Package $\Rightarrow$ the dirs are created automatically
   \item Create a Class $\Rightarrow$ file/class names correspond!
   \medskip
-  \item Use autocompletion to create \texttt{main}
-  \item Use autocompletion to enter \texttt{sysout}
+  \item Use autocompletion to create \lstinline{main}
+  \item Use autocompletion to enter \lstinline{System.out.println()}
   \medskip
   \item Generate a \texttt{.jar} file
 \end{itemize}
