@@ -160,13 +160,26 @@ xcolor={pdftex,svgnames} % dvipsnames, dvipsnames*, svgnames, svgnames*, x11name
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]{Maven -- Example \texttt{pom.xml} file}
 
-  \begin{lstlisting}[language=xml,
-    basicstyle={\tiny \ttfamily},
-    keywordstyle={\color{dkgreen}},
-    commentstyle={\color{dkgreen}},
-    stringstyle=
-    ]
-    <project>
+\lstdefinelanguage{XML}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  stringstyle=\color{black},
+  identifierstyle=\color{darkblue},
+  keywordstyle=\color{cyan},
+  morekeywords={xmlns,version,type}% list your attributes here
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  showstringspaces=false,
+  commentstyle=\color{gray}\upshape
+}
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+  \begin{lstlisting}[language=XML]
+  <project>
     <!-- model version is always 4.0.0 for Maven 2.x POMs -->
     <modelVersion>4.0.0</modelVersion>
     <!-- project coordinates, i.e. a group of values which uniquely identify this project -->
@@ -175,17 +188,23 @@ xcolor={pdftex,svgnames} % dvipsnames, dvipsnames*, svgnames, svgnames*, x11name
     <version>1.0</version>
     <!-- library dependencies -->
     <dependencies>
-    <dependency>
-    <!-- coordinates of the required library -->
-    <groupId>junit</groupId>
-    <artifactId>junit</artifactId>
-    <version>3.8.1</version>
-    <!-- this dependency is only used for running and compiling tests -->
-    <scope>test</scope>
-    </dependency>
+      <dependency>
+        <!-- coordinates of the required library -->
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>3.8.1</version>
+        <!-- this dependency is only used for running and compiling tests -->
+        <scope>test</scope>
+      </dependency>
     </dependencies>
-    </project>
+  </project>
   \end{lstlisting}
+
+  \begin{itemize}
+    \bigskip
+    \item groupId $\approx$ package
+    \item archetypeId $\approx$ main class
+\end{itemize}
 
 \end{frame}
 
