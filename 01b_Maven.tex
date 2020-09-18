@@ -123,34 +123,39 @@ xcolor={pdftex,svgnames} % dvipsnames, dvipsnames*, svgnames, svgnames*, x11name
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]{\href{https://maven.apache.org/}{\color{white} Maven}\footnote{\url{https://dzone.com/refcardz/apache-maven-2}}}
   \begin{itemize}
-    \item<1-> Goal: Manage compilation chain \& dependencies
+    \item<1-> Why? Eclipse fine, but does not transfer local config!
+% Scénario:
+% 1. You compile in Eclipse locally => fine (Eclipse internal compiler)
+% 2. You send your code to a colleague => KO
+% 3. PB: Eclipse's compiler options, Classpath, Buildpath, etc are not transfered :{ & you don't remember what you've changed!
+    \item<2-> Goal: Manage compilation chain \& dependencies
     \bigskip
-    \item<2-> Uses conventions\\
-    \onslide<3-4>{
+    \item<3-> Uses conventions\\
+    \onslide<4-5>{
       \medskip
         \begin{itemize}
-          \item<3-4> Project architecture
+          \item<4-5> Project architecture
           \medskip
-          \item<4> Pre-configured rules:\\
+          \item<5> Pre-configured rules:\\
           \texttt{clean}, \texttt{compile}\ldots{}
         \end{itemize}
     }
     \bigskip
-    \item<5-> Configuration via \texttt{pom.xml} file
+    \item<6-> Configuration via \texttt{pom.xml} file
     \bigskip
-    \item<6-> Example usage:\\
+    \item<7-> Example usage:\\
     \texttt{mvn clean compile}
     \bigskip
     \item<7-> We will let Eclipse do (most of) that for us!!
   \end{itemize}
 
   \begin{textblock*}{0.4\linewidth}(6cm,3cm)%
-    \onslide*<3-4>{
+    \onslide*<4-5>{
       \includegraphics[width=3cm]{./images01/maven-project.png}
     }
   \end{textblock*}
   \begin{textblock*}{0.4\linewidth}(8cm,3cm)%
-    \onslide*<4>{
+    \onslide*<5>{
       \includegraphics[width=6cm]{./images01/maven-lifecycle.png}
     }
   \end{textblock*}
